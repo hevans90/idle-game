@@ -42,7 +42,11 @@ const welcomeTourSteps: CelestialAudioName[] = [
   'asteroid-belt',
 ];
 
-export const SystemEditorContainer = () => {
+export const SystemEditorContainer = ({
+  inModal = false,
+}: {
+  inModal?: boolean;
+}) => {
   const viewportRef = useRef<Viewport>(null);
   const containerRef = useRef<PixiContainer>();
 
@@ -52,7 +56,7 @@ export const SystemEditorContainer = () => {
 
   const { open: dialogOpen } = useReactiveVar(dialogVar);
 
-  const size = useResize(dialogOpen ? 'dialog' : 'none');
+  const size = useResize(dialogOpen ? 'dialog' : 'none', null, inModal);
 
   const [locallySelectedAudioName, setLocallySelectedAudioName] =
     useState<CelestialAudioName>('welcome');
@@ -161,7 +165,10 @@ export const SystemEditorContainer = () => {
           </Container>
         </PixiViewport>
       </PixiWrapper>
-      <canvas style={{ visibility: 'hidden' }} ref={dataURICanvasRef} />
+      <canvas
+        style={{ visibility: 'hidden', display: 'none' }}
+        ref={dataURICanvasRef}
+      />
       <audio ref={audioRef} />
 
       <SystemEditorOverview

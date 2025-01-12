@@ -16,11 +16,6 @@ import { deepCompareRings } from './_utils/deep-compare-rings';
 import { runTextureGenOnWorker } from './texture-generation/run-texture-gen-on-worker';
 
 import { Planet } from '../_rendering/planet';
-import { PlanetGeneratorBooleans } from './ui/booleans';
-import { PlanetGeneratorColorDrawer } from './ui/color-drawer';
-import { NameSeedMobile } from './ui/name-seed-mobile';
-import { PlanetGeneratorRingDrawer } from './ui/ring-drawer';
-import { PlanetGeneratorSliders } from './ui/sliders';
 
 export const PlanetGenerator = ({
   stars = true,
@@ -90,44 +85,27 @@ export const PlanetGenerator = ({
   }, [JSON.stringify(rings)]);
 
   return (
-    <>
-      <Box ref={containerRef} position="relative" width="100%" height="100%">
-        <Planet
-          pixelShaderSize={pixelShaderSize}
-          stars={stars}
-          data={{
-            id: seed,
-            atmospheric_distance: atmosphericDistance,
-            texture_resolution: textureResolution,
-            radius,
-            terrain_bias: terrainBias,
-            terrain_hex_palette: currentPalette,
-            rings: rings.map((ring) => ({
-              ...ring,
-              id: ring.id ?? '',
-              inner_radius: ring.innerRadius,
-              outer_radius: ring.outerRadius,
-              terrain_bias: ring.terrainBias,
-              colors: ring.colors.map((color) => rgbToHex(color)),
-            })),
-          }}
-        />
-      </Box>
-
-      {fullUI && (
-        <>
-          <PlanetGeneratorBooleans />
-          {ui && (
-            <>
-              <PlanetGeneratorColorDrawer />
-              <NameSeedMobile />
-
-              <PlanetGeneratorRingDrawer />
-              <PlanetGeneratorSliders />
-            </>
-          )}
-        </>
-      )}
-    </>
+    <Box ref={containerRef} position="relative" width="100%" height="100%">
+      <Planet
+        pixelShaderSize={pixelShaderSize}
+        stars={stars}
+        data={{
+          id: seed,
+          atmospheric_distance: atmosphericDistance,
+          texture_resolution: textureResolution,
+          radius,
+          terrain_bias: terrainBias,
+          terrain_hex_palette: currentPalette,
+          rings: rings.map((ring) => ({
+            ...ring,
+            id: ring.id ?? '',
+            inner_radius: ring.innerRadius,
+            outer_radius: ring.outerRadius,
+            terrain_bias: ring.terrainBias,
+            colors: ring.colors.map((color) => rgbToHex(color)),
+          })),
+        }}
+      />
+    </Box>
   );
 };

@@ -10,15 +10,15 @@ import { SideNav } from '../global-ui/sidenav/sidenav';
 import { ToolBar } from '../global-ui/toolbar/toolbar';
 import { Breadcrumb } from './breadcrumb';
 
-export const sideNavWidth = 450;
-export const topBarHeight = 50;
+export const SIDE_NAV_WIDTH = 450;
+export const TOP_BAR_HEIGHT = 50;
 
 export const ResponsiveGrid = styled.div`
   height: 100vh;
 
   display: grid;
 
-  grid-template-rows: ${topBarHeight}px auto;
+  grid-template-rows: ${TOP_BAR_HEIGHT}px auto;
 
   grid-template-areas: ${({ sideNav }: LayoutConfig) =>
     sideNav
@@ -38,7 +38,7 @@ export const ResponsiveGrid = styled.div`
         ' main   '`};
 
     grid-template-columns: ${({ sideNav }: LayoutConfig) =>
-      sideNav ? `${sideNavWidth}px auto` : `auto`};
+      sideNav ? `${SIDE_NAV_WIDTH}px auto` : `auto`};
   }
 
   div.sidenav {
@@ -53,7 +53,7 @@ export const ResponsiveGrid = styled.div`
     position: relative;
 
     .container {
-      height: calc(100vh - ${topBarHeight}px);
+      height: calc(100vh - ${TOP_BAR_HEIGHT}px);
     }
   }
 `;
