@@ -3,7 +3,6 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
@@ -14,9 +13,10 @@ import {
   headerResponsiveFontProps,
   responsiveFontProps,
 } from '../../_responsive-utils/font-props';
-import { PlanetGenerator } from '../../canvases/planet-generator/planet-generator';
+import { MODAL_HEADER_HEIGHT } from '../../canvases/_utils/use-resize.hook';
+import { SystemEditorContainer } from '../../canvases/system-editor/system-editor.container';
 
-export const HomeworldGenerationModal = ({
+export const SystemGenerationModal = ({
   isOpen,
   onClose,
 }: {
@@ -28,9 +28,15 @@ export const HomeworldGenerationModal = ({
   return (
     <Modal isOpen={isOpen} onClose={() => onClose()} size={['full']} isCentered>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent overflow="hidden">
         <ModalHeader
+          minH={`${MODAL_HEADER_HEIGHT}px`}
+          px={4}
+          py={2}
           borderBottom="1px solid"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
           bg={bg}
           borderTopRightRadius={6}
           borderTopLeftRadius={6}
@@ -38,28 +44,27 @@ export const HomeworldGenerationModal = ({
           {...headerResponsiveFontProps}
         >
           <AnimatedText
-            content="Create your homeworld"
+            content="Create your system"
             duration={{ enter: 0.3 }}
             animationType="decipher"
             textAlign="center"
             fontSize="xl"
           ></AnimatedText>
-        </ModalHeader>
-        <ModalBody bg={bgDark} padding={0} position="relative">
-          <PlanetGenerator />
-        </ModalBody>
 
-        <ModalFooter
-          borderTop="1px solid"
-          bg={bg}
-          borderTopColor={border}
-          borderBottomRightRadius={6}
-          borderBottomLeftRadius={6}
-        >
           <Button {...responsiveFontProps} onClick={onClose}>
             Confirm
           </Button>
-        </ModalFooter>
+        </ModalHeader>
+        <ModalBody
+          bg={bgDark}
+          padding={0}
+          display="flex"
+          flexDir="column"
+          position="relative"
+          flexGrow={1}
+        >
+          <SystemEditorContainer inModal={true} />
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

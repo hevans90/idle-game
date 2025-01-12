@@ -45,8 +45,8 @@ import { creationStep } from './creation-types';
 import { CreationWorkflow } from './creation-workflow';
 import { BackgroundSelectionModal } from './workflow-step-modals/background-selection-modal';
 import { FactionSelectionModal } from './workflow-step-modals/faction-selection-modal';
-import { HomeworldGenerationModal } from './workflow-step-modals/homeworld-generation-modal';
 import { RaceSelectionModal } from './workflow-step-modals/race-selection-modal';
+import { SystemGenerationModal } from './workflow-step-modals/system-generation-modal';
 
 export const JoinGalaxy = () => {
   const characterCreationState = useReactiveVar(characterCreationVar);
@@ -73,7 +73,7 @@ export const JoinGalaxy = () => {
     useState<boolean>(false);
 
   const [empireCreationStatus, setEmpireCreationStatus] = useState<
-    'origin system' | 'homeworld' | 'empire' | 'done'
+    'origin system' | 'homesystem' | 'empire' | 'done'
   >(undefined);
 
   const [readyToTransition, setReadyToTransition] = useState<boolean>(false);
@@ -144,7 +144,7 @@ export const JoinGalaxy = () => {
         galacticEmpireId: empireData.insert_galactic_empire_one.id,
       },
     });
-    setEmpireCreationStatus('homeworld');
+    setEmpireCreationStatus('homesystem');
 
     await createHomeworld({
       variables: {
@@ -308,7 +308,7 @@ export const JoinGalaxy = () => {
         }}
       />
 
-      <HomeworldGenerationModal
+      <SystemGenerationModal
         isOpen={homeworldGenerationOpen}
         onClose={() => {
           characterCreationVar({

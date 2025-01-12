@@ -2,17 +2,16 @@ import { useReactiveVar } from '@apollo/client';
 import { Box } from '@chakra-ui/react';
 import { hexStringToNumber, useUiBackground } from '@idleverse/theme';
 import { Stage } from '@pixi/react';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { galacticEmpireVar, myEmpireVar } from '@idleverse/state';
 import { GameUI } from '../../game-ui/game-ui';
 import { useDisableWheelZoom } from './use-disable-wheel-zoom.hook';
-import { controls, useResize } from './use-resize.hook';
+import { useContainerSize } from './use-resize.hook';
 
 export const PixiWrapper = (props: {
   children?: ReactNode;
   ui?: JSX.Element;
-  resizeControls?: controls;
   showGameUI?: boolean;
   bg?: 'dark' | 'darker';
 }) => {
@@ -20,7 +19,8 @@ export const PixiWrapper = (props: {
 
   const { rawBgDarker, rawBgDark } = useUiBackground();
 
-  const size = useResize(props.resizeControls || 'none');
+  const boxRef = useRef<HTMLDivElement>(null);
+  const size = useContainerSize(boxRef);
 
   const galacticEmpire = useReactiveVar(galacticEmpireVar);
   const myEmpire = useReactiveVar(myEmpireVar);
@@ -34,7 +34,14 @@ export const PixiWrapper = (props: {
   }, [props]);
 
   return (
-    <Box position="relative" height="100%" overflow="hidden">
+    <Box
+      position="relative"
+      width="100%"
+      height="100%"
+      overflow="hidden"
+      flexGrow={1}
+      ref={boxRef}
+    >
       <Box ref={disableZoomCallback}>
         <Stage
           {...size}
@@ -43,6 +50,7 @@ export const PixiWrapper = (props: {
               props?.bg === 'darker' ? rawBgDarker : rawBgDark
             ),
             antialias: true,
+            resizeTo: boxRef.current,
           }}
         >
           {props?.children}

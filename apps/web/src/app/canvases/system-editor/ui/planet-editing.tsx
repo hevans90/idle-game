@@ -253,6 +253,7 @@ export const PlanetAppearanceEditor = ({
             localPalette.forest,
           ].map((paletteColor, i) => (
             <RangeSliderThumb
+              key={i}
               boxSize={6}
               index={i}
               bgColor={paletteColor}

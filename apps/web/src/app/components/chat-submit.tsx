@@ -8,7 +8,7 @@ import React from 'react';
 
 import { colorsVar } from '@idleverse/state';
 import { useUiBackground } from '@idleverse/theme';
-import { sideNavWidth } from './layout';
+import { SIDE_NAV_WIDTH } from './layout';
 
 export const ChatSubmit = () => {
   const [message, setMessage] = React.useState('');
@@ -41,7 +41,7 @@ export const ChatSubmit = () => {
       position="absolute"
       bottom="0"
       padding="1"
-      width={bp === 'small' ? '100%' : sideNavWidth}
+      width={bp === 'small' ? '100%' : SIDE_NAV_WIDTH}
       borderColor={border}
       borderStyle="solid"
       borderTopWidth="1px"

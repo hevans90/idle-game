@@ -37,6 +37,8 @@ const PixiViewportComponent = PixiComponent('Viewport', {
   ) {
     const { app, ...viewportProps } = props;
 
+    console.log(app.renderer);
+
     const viewport = new Viewport({
       ticker: props.app.ticker,
       events: props.app.renderer.events,
